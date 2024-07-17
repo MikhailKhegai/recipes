@@ -29,41 +29,25 @@ DATA = {
 #   }
 # }
 
-def omlet(request):
-    recipe_keys = list(DATA['omlet'].keys())
-    recipe_values = list(DATA['omlet'].values())
-    servings = int(request.GET.get('servings', 1))
-    context = {
-      'recipe': {
-        recipe_keys[0] : int(recipe_values[0]) * servings,
-        recipe_keys[1] : float(recipe_values[1]) * servings,
-        recipe_keys[2] : float(recipe_values[2]) * servings
-      }
-    }
-    return render(request, 'calculator/index.html', context)
+# def dish(request, dish):
+#     servings = int(request.GET.get('servings', 1))
+#     for ingridient, amount in DATA[dish].items():
+#         context = {
+#             'recipe' : {
+#                 ingridient : float(amount) * servings
+#             }
+#         }
+#     return render(request, 'calculator/index.html', context)
 
-def pasta(request):
-    recipe_keys = list(DATA['pasta'].keys())
-    recipe_values = list(DATA['pasta'].values())
+def dish(request, dish):
     servings = int(request.GET.get('servings', 1))
-    context = {
-        'recipe' : {
-            recipe_keys[0]: float(recipe_values[0]) * servings,
-            recipe_keys[1]: float(recipe_values[1]) * servings
+    ingridients = {}
+    for i, a in DATA[dish].items():
+        ingridients[i] = float(a) * servings
+    for ingridient, amount in ingridients.items():
+        context = {
+            'recipe': {
+                ingridient : amount
+            }
         }
-    }
-    return render(request, 'calculator/index.html', context)
-
-def buter(request):
-    recipe_keys = list(DATA['buter'].keys())
-    recipe_values = list(DATA['buter'].values())
-    servings = int(request.GET.get('servings', 1))
-    context = {
-        'recipe': {
-            recipe_keys[0]: int(recipe_values[0]) * servings,
-            recipe_keys[1]: int(recipe_values[1]) * servings,
-            recipe_keys[2]: int(recipe_values[2]) * servings,
-            recipe_keys[3]: int(recipe_values[3]) * servings
-        }
-    }
     return render(request, 'calculator/index.html', context)
