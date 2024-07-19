@@ -44,10 +44,13 @@ def dish(request, dish):
     ingridients = {}
     for i, a in DATA[dish].items():
         ingridients[i] = float(a) * servings
-    for ingridient, amount in ingridients.items():
-        context = {
-            'recipe': {
-                ingridient : amount
-            }
+    keys = list(ingridients.keys())
+    values = list(ingridients.values())
+    context = {
+        'recipe': {
+
         }
+    }
+    for i in range(len(keys)):
+        context['recipe'].setdefault(keys[i], values[i])
     return render(request, 'calculator/index.html', context)
